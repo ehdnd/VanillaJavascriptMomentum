@@ -15,6 +15,7 @@ function deleteToDo(event) {
   li.remove();
   toDos = toDos.filter((toDo) => toDo.id !== parseInt(li.id));
   saveToDos();
+  handleTodoLimit();
 }
 
 function paintToDo(newTodoObject) {
@@ -23,7 +24,7 @@ function paintToDo(newTodoObject) {
   const span = document.createElement("span");
   span.innerText = newTodoObject.text;
   const button = document.createElement("button");
-  button.innerText = "❌";
+  button.innerText = Math.floor(Math.random() * 10);
   button.addEventListener("click", deleteToDo);
   li.appendChild(span);
   li.appendChild(button);
@@ -41,6 +42,7 @@ function handleTodoSubmit(event) {
   toDos.push(newTodoObject);
   paintToDo(newTodoObject);
   saveToDos();
+  handleTodoLimit();
 }
 
 toDoForm.addEventListener("submit", handleTodoSubmit);
@@ -52,3 +54,16 @@ if (savedToDos) {
   toDos = parsedToDos;
   parsedToDos.forEach(paintToDo);
 }
+
+function handleTodoLimit() {
+  const liCount = toDos.length;
+  if (liCount >= 8) {
+    toDoInput.disabled = true;
+    toDoInput.placeholder = "Max ToDos. Please finish your work 🔥";
+  } else {
+    toDoInput.disabled = false;
+    toDoInput.placeholder = "Write a To Do and Press Enter";
+  }
+}
+
+handleTodoLimit();

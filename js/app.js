@@ -16,6 +16,7 @@ function onLoginSubmit(event) {
   const username = loginInput.value;
   localStorage.setItem(USERNAME_KEY, username);
   paintGreetings(username);
+  screenVisible();
 }
 
 const savedUsername = localStorage.getItem(USERNAME_KEY);
@@ -27,4 +28,10 @@ if (savedUsername === null) {
 } else {
   // show the greeting
   paintGreetings(savedUsername);
+  screenVisible();
+}
+
+function screenVisible() {
+  const hiddenDiv = document.querySelector("body div:last-child");
+  hiddenDiv.classList.remove("hidden");
 }
