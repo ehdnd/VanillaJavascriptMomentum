@@ -10,14 +10,22 @@ function paintGreetings(username) {
   greeting.classList.remove(HIDDEN_CLASSNAME);
 }
 
+function makeFullScreen() {
+  if (!document.fullscreenElement) {
+    document.documentElement.requestFullscreen();
+  };
+}
+
 function onLoginSubmit(event) {
   event.preventDefault();
   loginForm.classList.add(HIDDEN_CLASSNAME);
   const username = loginInput.value;
   localStorage.setItem(USERNAME_KEY, username);
+  makeFullScreen();
   paintGreetings(username);
   screenVisible();
 }
+
 
 const savedUsername = localStorage.getItem(USERNAME_KEY);
 
